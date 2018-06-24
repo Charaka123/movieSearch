@@ -1,0 +1,24 @@
+<% include partials/header%>
+<a href="/"><h1>Looking for a Movie? </h1></a>
+<form method="POST" action="/searchMovie">
+	<input type="text" id="search" name="movieName" placeholder="Search">
+</form>
+<% if(movie["Response"] == "True"){ %>
+<div class="movie">
+	<h2><%= movie["Title"] %> <span id="rating"><%= movie["imdbRating"] %></span></h2>
+	<a href="<%= movie["Website"] %>"><img src="<%= movie["Poster"] %>"></a>
+	<p class="genre"><strong><%= movie["Genre"] %></strong></p>
+	<p><%= movie["Plot"] %></p>
+	<a href="/list"><button style="width: 100%">movie list</button></a>
+	<a href="/"><button style="width: 100%">movie details</button></a>
+</div>
+<%}else if(movie["Response"] == "False"){%>
+<div class="movie">
+	<h2> Movie not found... </h2>
+	<a href="/list"><button style="width: 100%">movie list</button></a>
+	<a href="/"><button style="width: 100%">movie details</button></a>
+</div>
+<%}else{%>
+<a href="/list"><button>movie list</button></a>
+<%}%>
+<% include partials/footer%>

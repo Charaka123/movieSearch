@@ -1,0 +1,31 @@
+<% include partials/header%>
+<a href="/list"><h1>Looking for Any Movies? </h1></a>
+<form method="POST" action="/searchMovieList">
+	<input type="text" id="search" name="movieName" placeholder="Search">
+</form>
+<% if(movies["Response"] == "True"){ %>
+	<%movies["Search"].forEach( function(movie){%>
+		<div class="movie">
+			<li>
+				<div><%= movie["Title"]%></div>
+				<div class="hide" style="display: none;"><%= movie["Year"]%></div>
+				<div class="hide" style="display: none;"><img class="small" src="<%= movie["Poster"] %>"></div>
+			</li>
+		</div>
+	<%});%>
+<%}else if(movies["Response"] == "False"){%>
+<div class="movie">
+	<h2> Movies not found... </h2>
+</div>
+<%}else{%>
+<a href="/"><button>movie details</button></a>
+<%}%>
+<script type="text/javascript">
+	$('li').mouseenter(function(){
+		$(this).find('.hide').fadeIn(400);
+	});
+	$('li').mouseleave(function(){
+		$(this).find('.hide').slideUp(500);
+	});
+</script>
+<% include partials/footer%>
